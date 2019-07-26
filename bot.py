@@ -12,7 +12,7 @@ BOT_TOKEN_KEY = "BOT_TOKEN"
 if BOT_TOKEN_KEY not in os.environ:
     dotenv_path = join(dirname(__file__), '.env')
     load_dotenv(dotenv_path)
-    BOT_TOKEN = os.environ.get(BOT_TOKEN_KEY)
+BOT_TOKEN = os.environ.get(BOT_TOKEN_KEY)
 
 # 読み込むコグのリスト
 INITIAL_COGS = [
