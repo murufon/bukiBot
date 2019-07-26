@@ -1,0 +1,10 @@
+site_name: ブキルーレット for discord
+nav:
+    - 使い方: index.md
+    - about: about.md
+# theme: readthedocs
+theme: material
+site_author: murufon
+markdown_extensions:
+    - nl2br
+    - markdown_newtab
