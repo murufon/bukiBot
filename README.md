@@ -51,6 +51,13 @@ mkdocs build
 mkdocs gh-deploy
 ```
 
+heroku
+```
+heroku login
+heroku logs -a bukibot
+heroku ps -a bukibot
+```
+
 ## 初期セットアップ(このリポジトリをcloneして使う場合には不要)
 ```
 mkdocs new docs
