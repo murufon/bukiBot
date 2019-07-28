@@ -33,7 +33,7 @@ python bot.py
 venvファイルの読み込みとディレクトリ移動
 ```
 source venv/bin/activate
-cd docsw
+cd docs
 ```
 
 ローカルで実行
