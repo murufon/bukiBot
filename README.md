@@ -3,7 +3,8 @@ splatoon2ブキルーレット用discord bot
 https://bukibot.ml
 
 ## デプロイ
-このリポジトリのmasterブランチにpushするとHerokuにデプロイされます
+Heroku側でGitHub連携の設定後、masterブランチにpushするとHerokuにデプロイされます
+DiscordのBot Tokenを環境変数として渡しているので、HerokuのSettings/Config Varsに`BOT_TOKEN`という名前でTokeんを設定しておいてください
 
 ## ローカルへの開発環境の構築
 

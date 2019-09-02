@@ -1,55 +1,43 @@
 # coding: UTF-8
 import discord
-from discord.ext import commands
-import traceback
+import logging
 
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-# Botトークンの読み込み
-BOT_TOKEN_KEY = "BOT_TOKEN"
-if BOT_TOKEN_KEY not in os.environ:
-    dotenv_path = join(dirname(__file__), '.env')
-    load_dotenv(dotenv_path)
-BOT_TOKEN = os.environ.get(BOT_TOKEN_KEY)
+import json
+import random
 
-# 読み込むコグのリスト
-INITIAL_COGS = [
-    'cogs.buki'
-]
+import datetime
 
-class MyBot(commands.Bot):
+logging.basicConfig(level=logging.INFO)
 
-    # MyBotのコンストラクタ
-    def __init__(self, command_prefix):
-        # スーパークラスのコンストラクタに値を渡して実行
-        super().__init__(command_prefix)
+client = discord.Client()
 
-        # INITIAL_COGSに格納されている名前から、コグを読み込む
-        # エラーが発生した場合は、エラー内容を表示
-        for cog in INITIAL_COGS:
-            try:
-                self.load_extension(cog)
-            except Exception:
-                traceback.print_exc()
+@client.event
+async def on_ready():
+    print('-----')
+    print('logged in')
+    print(f"user name: {client.user.name}")
+    print(f"user id: {client.user.id}")
+    print('-----')
 
-    # Botの準備完了時に呼び出されるイベント
-    async def on_ready(self):
-        print('-----')
-        print('logged in')
-        print('user name: ' + str(self.user.name))
-        print('user id: ' + str(self.user.id))
-        print('-----')
+@client.event
+async def on_message(message):
+    # メッセージ送信者がBotだった場合は無視する
+    if message.author.bot:
+        return
 
-    # メッセージを受信した際に呼び出されるイベント
-    async def on_message(self, message):
-        if message.author.bot: # メッセージの送信者がBotなら、処理を終了する
-            return
+    if message.content.lower() in ['buki', 'ぶき', 'ブキ', '武器']:
+        json_data = json.load(open('weapon.json','r'))
+        buki = random.choice(json_data)
+        await message.channel.send(buki["name"]["ja_JP"])
 
-        await self.process_commands(message) # messageがコマンドなら実行する処理
-
-# MyBotのインスタンス化及び起動処理
 if __name__ == '__main__':
-    bot = MyBot(command_prefix='') # command_prefixはコマンドの最初の文字として使うもの。 e.g. !ping
-    bot.run(BOT_TOKEN) # Botのトークン
+    if "BOT_TOKEN" not in os.environ:
+        dotenv_path = join(dirname(__file__), '.env')
+        load_dotenv(dotenv_path)
+    BOT_TOKEN = os.environ.get("BOT_TOKEN")
+
+    client.run(BOT_TOKEN)

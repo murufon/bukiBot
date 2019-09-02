@@ -1,6 +1,7 @@
 site_name: ブキルーレット
 nav:
-    - 使い方: index.md
+    - 導入方法: index.md
+    - コマンド: command.md
     - about: about.md
     - 更新履歴: changeLog.md
 # theme: readthedocs
