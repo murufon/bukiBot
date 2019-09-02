@@ -1,7 +1,8 @@
-site_name: ブキルーレット for discord
+site_name: ブキルーレット
 nav:
     - 使い方: index.md
     - about: about.md
+    - 更新履歴: changeLog.md
 # theme: readthedocs
 theme: material
 site_author: murufon

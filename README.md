@@ -2,15 +2,8 @@
 splatoon2ブキルーレット用discord bot
 https://bukibot.ml
 
-## Botの導入
-以下のURLにアクセス
-
-https://discordapp.com/api/oauth2/authorize?client_id=603582186175725568&permissions=0&scope=bot
-
-導入したいサーバーを選んで認証します
-
 ## デプロイ
-このリポジトリのmasterブランチにpushするとHerokuにデプロイれます
+このリポジトリのmasterブランチにpushするとHerokuにデプロイされます
 
 ## ローカルへの開発環境の構築
 
