@@ -42,5 +42,4 @@ if __name__ == '__main__':
         dotenv_path = join(dirname(__file__), '.env')
         load_dotenv(dotenv_path)
     BOT_TOKEN = os.environ.get("BOT_TOKEN")
-
     client.run(BOT_TOKEN)
