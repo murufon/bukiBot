@@ -34,8 +34,7 @@ async def on_message(message):
         buki = random.choice(json_data)
         ja_name = buki["name"]["ja_JP"]
         en_name = buki["name"]["en_US"]
-        # path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-        path = "images/weapon/" + buki["name"]["ja_JP"] + ".png"
+        path = "images/main/" + buki["name"]["ja_JP"] + ".png"
         await message.channel.send(f"{ja_name}( {en_name} )" , file=discord.File(path))
 
 if __name__ == '__main__':
