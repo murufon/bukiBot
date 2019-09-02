@@ -1,5 +1,8 @@
+# discord bot
 discord.py
 python-dotenv
+
+# mkdocs
 mkdocs
 mkdocs-material
 markdown3-newtab

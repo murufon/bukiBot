@@ -32,7 +32,11 @@ async def on_message(message):
     if message.content.lower() in ['buki', 'ぶき', 'ブキ', '武器']:
         json_data = json.load(open('weapon.json','r'))
         buki = random.choice(json_data)
-        await message.channel.send(buki["name"]["ja_JP"])
+        ja_name = buki["name"]["ja_JP"]
+        en_name = buki["name"]["en_US"]
+        # path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+        path = "images/weapon/" + buki["name"]["ja_JP"] + ".png"
+        await message.channel.send(f"{ja_name}( {en_name} )" , file=discord.File(path))
 
 if __name__ == '__main__':
     if "BOT_TOKEN" not in os.environ:
