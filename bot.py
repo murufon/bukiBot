@@ -29,7 +29,7 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if message.content.lower() in ['buki', 'ぶき', 'ブキ', '武器', 'weapon']:
+    if message.content.lower() in ['buki', 'ぶき', 'ブキ', '武器', 'weapon', 'うえぽん', 'ウエポン', 'arms', 'アームズ', 'あーむず']:
         json_data = json.load(open('weapon.json','r'))
         buki = random.choice(json_data)
         ja_name = buki["name"]["ja_JP"]
