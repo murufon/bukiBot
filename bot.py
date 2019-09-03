@@ -11,6 +11,8 @@ import random
 
 import datetime
 
+import requests
+
 logging.basicConfig(level=logging.INFO)
 
 client = discord.Client()
@@ -36,7 +38,28 @@ async def on_message(message):
         en_name = buki["name"]["en_US"]
         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
         user = message.author.display_name
-        await message.channel.send(f"{user}さんはこのイカした{ja_name}({en_name})を使おう！" , file=discord.File(path))
+        await message.channel.send(f"{user}さんにおすすめのブキは{ja_name}({en_name})！" , file=discord.File(path))
+    
+    if message.content.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
+        headers = {"User-Agent": "@murufon"}
+        url = "https://spla2.yuu26.com/" + "gachi/schedule"
+        response = requests.get(url,headers=headers)
+        json_data = json.loads(response.text)
+        r = json_data['result']
+        time_format = '%Y-%m-%dT%H:%M:%S'
+        msg = "ガチマッチのスケジュールはこちら！\n"
+        msg += "```\n"
+        for i in range(3):
+            start = datetime.datetime.strptime(r[i]['start'], time_format)
+            end = datetime.datetime.strptime(r[i]['end'], time_format)
+            msg += "\n"
+            msg += f"{start.hour}時〜{end.hour}時\n"
+            msg += f"{r[i]['rule']}\n"
+            msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}\n"
+        msg += "```\n"
+        await message.channel.send(msg)
+
+
 
 if __name__ == '__main__':
     if "BOT_TOKEN" not in os.environ:
