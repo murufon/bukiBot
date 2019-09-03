@@ -1,10 +1,12 @@
 # bukiBot
 splatoon2ブキルーレット用discord bot
+
 https://bukibot.ml
 
 ## デプロイ
 Heroku側でGitHub連携の設定後、masterブランチにpushするとHerokuにデプロイされます
-DiscordのBot Tokenを環境変数として渡しているので、HerokuのSettings/Config Varsに`BOT_TOKEN`という名前でTokeんを設定しておいてください
+
+DiscordのBot Tokenを環境変数として渡しているので、HerokuのSettings/Config Varsに`BOT_TOKEN`という名前でTokenを設定しておいてください
 
 ## ローカルへの開発環境の構築
 
@@ -21,6 +23,11 @@ vim .env
 ```
 source venv/bin/activate
 python bot.py
+```
+
+テスト
+```
+python -m unittest
 ```
 
 ## mkdocs
