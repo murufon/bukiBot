@@ -35,7 +35,8 @@ async def on_message(message):
         ja_name = buki["name"]["ja_JP"]
         en_name = buki["name"]["en_US"]
         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-        await message.channel.send(f"{ja_name}( {en_name} )" , file=discord.File(path))
+        user = message.author.display_name
+        await message.channel.send(f"{user}さんはこのイカした{ja_name}({en_name})を使おう！" , file=discord.File(path))
 
 if __name__ == '__main__':
     if "BOT_TOKEN" not in os.environ:
