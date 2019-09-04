@@ -17,6 +17,47 @@ logging.basicConfig(level=logging.INFO)
 
 client = discord.Client()
 
+def getJsonFromAPI(link):
+    headers = {"User-Agent": "@murufon"}
+    url = "https://spla2.yuu26.com/" + link
+    response = requests.get(url,headers=headers)
+    json_data = json.loads(response.text)
+    return json_data
+
+def getStageInfo(link, key, showRule=True):
+    json_data = getJsonFromAPI(link)
+    r = json_data['result']
+    time_format = '%Y-%m-%dT%H:%M:%S'
+    msg = f"{key}のスケジュールはこちら！\n"
+    msg += "```\n"
+    for i in range(3):
+        start = datetime.datetime.strptime(r[i]['start'], time_format)
+        end = datetime.datetime.strptime(r[i]['end'], time_format)
+        msg += "\n" # markdownの最初の空行は無視される
+        msg += f"{start.strftime('%H:%M')} - {end.strftime('%H:%M')}\n"
+        if showRule:
+            msg += f"{r[i]['rule']}\n"
+        msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}\n"
+    msg += "```\n"
+    return msg
+
+def getCoopInfo(link, key):
+    json_data = getJsonFromAPI(link)
+    r = json_data['result']
+    time_format = '%Y-%m-%dT%H:%M:%S'
+    msg = f"{key}のスケジュールはこちら！\n"
+    msg += "```\n"
+    for i in range(2):
+        start = datetime.datetime.strptime(r[i]['start'], time_format)
+        end = datetime.datetime.strptime(r[i]['end'], time_format)
+        msg += "\n"
+        msg += f"{start.strftime('%m/%d %H:%M')} - {end.strftime('%m/%d %H:%M')}\n"
+        msg += f"{r[i]['stage']['name']}\n"
+        msg += f"{r[i]['weapons'][0]['name']}/{r[i]['weapons'][1]['name']}/{r[i]['weapons'][2]['name']}/{r[i]['weapons'][3]['name']}\n"
+    msg += "```\n"
+    return msg
+
+
 @client.event
 async def on_ready():
     print('-----')
@@ -41,22 +82,27 @@ async def on_message(message):
         await message.channel.send(f"{user}さんにおすすめのブキは{ja_name}({en_name})！" , file=discord.File(path))
     
     if message.content.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
-        headers = {"User-Agent": "@murufon"}
-        url = "https://spla2.yuu26.com/" + "gachi/schedule"
-        response = requests.get(url,headers=headers)
-        json_data = json.loads(response.text)
-        r = json_data['result']
-        time_format = '%Y-%m-%dT%H:%M:%S'
-        msg = "ガチマッチのスケジュールはこちら！\n"
-        msg += "```\n"
-        for i in range(3):
-            start = datetime.datetime.strptime(r[i]['start'], time_format)
-            end = datetime.datetime.strptime(r[i]['end'], time_format)
-            msg += "\n"
-            msg += f"{start.hour}時〜{end.hour}時\n"
-            msg += f"{r[i]['rule']}\n"
-            msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}\n"
-        msg += "```\n"
+        key = "ガチマッチ"
+        link = "gachi/schedule"
+        msg = getStageInfo(link, key)
+        await message.channel.send(msg)
+
+    if message.content.lower() in ['league', 'riguma', 'リグマ', 'りぐま', 'リーグマッチ', 'りーぐまっち']:
+        key = "リーグマッチ"
+        link = "league/schedule"
+        msg = getStageInfo(link, key)
+        await message.channel.send(msg)
+
+    if message.content.lower() in ['regular', 'レギュラー', 'れぎゅらー', 'レギュラーマッチ', 'れぎゅらーまっち', 'nawabari', 'ナワバリ', 'なわばり', 'ナワバリバトル', 'なわばりばとる']:
+        key = "ナワバリバトル"
+        link = "regular/schedule"
+        msg = getStageInfo(link, key, showRule=False)
+        await message.channel.send(msg)
+
+    if message.content.lower() in ['salmon', 'samon', 'sa-mon', 'サーモン', 'さーもん', 'サーモンラン', 'さーもんらん', 'coop', 'コープ', 'こーぷ']:
+        key = "サーモンラン"
+        link = "coop/schedule"
+        msg = getCoopInfo(link, key)
         await message.channel.send(msg)
 
 
