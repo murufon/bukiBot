@@ -11,3 +11,7 @@
 ## 連絡先
 Twitter: [@murufon](https://twitter.com/murufon)
 Discord: murufon#9647
+
+## 使用しているAPI
+[https://stat.ink/api-info/weapon2](https://stat.ink/api-info/weapon2)
+[https://spla2.yuu26.com](https://spla2.yuu26.com)
