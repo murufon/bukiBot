@@ -64,6 +64,10 @@ async def on_ready():
     print('logged in')
     print(f"user name: {client.user.name}")
     print(f"user id: {client.user.id}")
+    print(f"discord.py version: {discord.__version__}")
+    print("servers connected to:")
+    for server in client.guilds:
+        print(f"* {server.name}")
     print('-----')
 
 @client.event
