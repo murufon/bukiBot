@@ -1,7 +1,9 @@
 # python
 /.env
+/token.json
 /venv/
 __pycache__
+/tmp/
 
 # vscode
 /.vscode/

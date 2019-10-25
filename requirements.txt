@@ -1,5 +1,7 @@
 # discord bot
 discord.py
+pynacl
+google-cloud-texttospeech
 python-dotenv
 requests
 
