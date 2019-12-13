@@ -4,10 +4,72 @@ import os
 from google.cloud import texttospeech
 import datetime
 import re
+import asyncio
 
 class TTSCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_message(self, ctx):
+        # botは読み上げない
+        if ctx.author.bot:
+            return
+
+        mess_id = ctx.author.id
+        guild_id = ctx.guild.id # サーバID
+        prefix = "!"
+
+        if ctx.content.startswith(prefix):
+            return
+
+        # そのギルドでVC接続されているか判別
+        if ctx.guild.voice_client is not None:
+            if ctx.guild.voice_client.is_connected():
+                ctrlvc = ctx.guild.voice_client
+            else:
+                return
+        else:
+            return
+
+        str_guild_id = str(guild_id)
+
+        get_msg = ctx.clean_content
+        # URLを、"URL"へ置換
+        get_msg = re.sub(r'http(s)?://([\w-]+\.)+[\w-]+(/[-\w ./?%&=]*)?', 'URL', get_msg)
+        # reactionの置換
+        get_msg = re.sub(':(\w\w+):\d+', r'\1', get_msg)
+        # 「<>」の削除
+        get_msg = re.sub('[<>]', '', get_msg)
+        # 「&」の置換
+        get_msg = get_msg.replace('&', '&amp;')
+
+        rawfile = self.knockGTTS(get_msg, str_guild_id)
+        voice_mess = './tmp/{}/{}'.format(str_guild_id, rawfile)
+        query = voice_mess
+
+        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
+        ctrlvc = ctx.guild.voice_client
+        # ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
+        while (ctrlvc.is_playing()):
+            # 他の処理をさせて1秒待機
+            await asyncio.sleep(1)
+
+
+
+        ctrlvc.play(discord.FFmpegPCMAudio(query))
+
+        # try:
+        #     await ctx.channel.send(file=yurushite)
+        #     yurushite_f.close()
+        # except NameError:
+        #     pass
+
+        # await ctx.channel.send('Now playing: {}'.format(query))
+        # await asyncio.sleep(0.5)
+        # os.remove(query)
+
+        print("on_message" + ctx.clean_content)
 
     @commands.command()
     async def join(self, ctx, *, channel: discord.VoiceChannel):

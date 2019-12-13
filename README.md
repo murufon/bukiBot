@@ -63,3 +63,8 @@ heroku ps -a bukibot
 ```
 mkdocs new docs
 ```
+
+## 開発
+`bot.py`は本番で動いている
+
+`main.py`は開発用。GoogleTTSなどの実験用
