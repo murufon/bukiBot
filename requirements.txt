@@ -1,5 +1,5 @@
 # discord bot
-discord.py == 1.2.5
+discord.py
 pynacl
 google-cloud-texttospeech
 python-dotenv
