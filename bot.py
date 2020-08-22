@@ -122,7 +122,25 @@ async def on_message(message):
         msg = getCoopInfo(link, key)
         await message.channel.send(msg)
 
-
+    if client.user in message.mentions:
+        if 'おはよ' in message.content:
+            msg = "おはようございます！"
+            await message.channel.send(msg)
+        if 'こんにちは' in message.content:
+            msg = "こんにちは！"
+            await message.channel.send(msg)
+        if 'こんばんは' in message.content:
+            msg = "こんばんは！"
+            await message.channel.send(msg)
+        if 'おやすみ' in message.content:
+            msg = "おやすみなさい！"
+            await message.channel.send(msg)
+        if '好き' in message.content:
+            msg = "僕も好き！"
+            await message.channel.send(msg)
+        if 'たんたん麺' in message.content:
+            msg = "初めましてたんたん麺ですよろしくお願いします！"
+            await message.channel.send(msg)
 
 if __name__ == '__main__':
     if "BOT_TOKEN" not in os.environ:
