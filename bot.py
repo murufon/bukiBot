@@ -10,7 +10,7 @@ import json
 import random
 
 import datetime
-
+import re
 import requests
 
 logging.basicConfig(level=logging.INFO)
@@ -121,6 +121,17 @@ async def on_message(message):
         link = "coop/schedule"
         msg = getCoopInfo(link, key)
         await message.channel.send(msg)
+
+    dice_pattern = '^(?P<dice_num>\d+)d(?P<dice_size>\d+)$' # example: 3d6
+    content = message.content.lower()
+    match_result = re.match(dice_pattern, content)
+    if match_result:
+        dice_num = int(match_result.group('dice_num'))
+        dice_size = int(match_result.group('dice_size'))
+        dice_sum = 0
+        for i in range(dice_num):
+            dice_sum += random.randint(1, dice_size)
+        await message.channel.send(str(dice_sum))
 
     if client.user in message.mentions:
         if 'おはよ' in message.content:
