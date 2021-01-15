@@ -133,7 +133,7 @@ async def on_message(message):
             dice_sum += random.randint(1, dice_size)
         await message.channel.send(str(dice_sum))
 
-    if client.user in message.mentions:
+    if client.user in message.mentions: # if mentioned
         if 'おはよ' in message.content:
             msg = "おはようございます！"
             await message.channel.send(msg)
@@ -149,7 +149,7 @@ async def on_message(message):
         if '好き' in message.content:
             msg = "僕も好き！"
             await message.channel.send(msg)
-        if 'たんたん麺' in message.content:
+        if 'たんたん' in message.content:
             msg = "初めましてたんたん麺ですよろしくお願いします！"
             await message.channel.send(msg)
 
