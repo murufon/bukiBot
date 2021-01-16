@@ -57,6 +57,10 @@ def getCoopInfo(link, key):
     msg += "```\n"
     return msg
 
+def getDailyRandomString():
+    now = datetime.datetime.now()
+    now_str = str(now.strftime("%Y%m%d"))
+    return now_str
 
 @client.event
 async def on_ready():
@@ -151,6 +155,13 @@ async def on_message(message):
             await message.channel.send(msg)
         if 'たんたん' in message.content:
             msg = "初めましてたんたん麺ですよろしくお願いします！"
+            await message.channel.send(msg)
+        if 'まそ' in message.content:
+            with open('maso.txt', 'r') as f:
+                maso_list = f.read().split("\n")
+            seed = getDailyRandomString() + str(message.author.id)
+            random.seed(seed)
+            msg = random.choice(maso_list)
             await message.channel.send(msg)
 
 if __name__ == '__main__':
