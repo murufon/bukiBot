@@ -156,13 +156,13 @@ async def on_message(message):
         if 'たんたん' in message.content:
             msg = "初めましてたんたん麺ですよろしくお願いします！"
             await message.channel.send(msg)
-        if 'まそ' in message.content:
+        if 'まそ語録' in message.content:
             with open('maso.txt', 'r') as f:
                 maso_list = f.read().split("\n")
             seed = getDailyRandomString() + str(message.author.id)
             random.seed(seed)
-            msg = random.choice(maso_list)
-            await message.channel.send(msg)
+            maso_goroku = random.choice(maso_list)
+            await message.channel.send(f"今日のまそ語録: {maso_goroku}")
 
 if __name__ == '__main__':
     if "BOT_TOKEN" not in os.environ:
