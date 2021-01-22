@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 import json
 import random
 
-import datetime
+from datetime import datetime, timedelta, timezone
 import re
 import requests
 
@@ -31,8 +31,8 @@ def getStageInfo(link, key, showRule=True):
     msg = f"{key}のスケジュールはこちら！\n"
     msg += "```\n"
     for i in range(3):
-        start = datetime.datetime.strptime(r[i]['start'], time_format)
-        end = datetime.datetime.strptime(r[i]['end'], time_format)
+        start = datetime.strptime(r[i]['start'], time_format)
+        end = datetime.strptime(r[i]['end'], time_format)
         msg += "\n" # markdownの最初の空行は無視される
         msg += f"{start.strftime('%H:%M')} - {end.strftime('%H:%M')}\n"
         if showRule:
@@ -48,8 +48,8 @@ def getCoopInfo(link, key):
     msg = f"{key}のスケジュールはこちら！\n"
     msg += "```\n"
     for i in range(2):
-        start = datetime.datetime.strptime(r[i]['start'], time_format)
-        end = datetime.datetime.strptime(r[i]['end'], time_format)
+        start = datetime.strptime(r[i]['start'], time_format)
+        end = datetime.strptime(r[i]['end'], time_format)
         msg += "\n"
         msg += f"{start.strftime('%m/%d %H:%M')} - {end.strftime('%m/%d %H:%M')}\n"
         msg += f"{r[i]['stage']['name']}\n"
@@ -58,7 +58,8 @@ def getCoopInfo(link, key):
     return msg
 
 def getDailyRandomString():
-    now = datetime.datetime.now()
+    JST = timezone(timedelta(hours=+9), 'JST')
+    now = datetime.now(JST)
     now_str = str(now.strftime("%Y%m%d"))
     return now_str
 
