@@ -176,6 +176,11 @@ async def on_message(message):
             random.seed(seed)
             maso_goroku = random.choice(maso_list)
             await message.channel.send(f"今日のまそ語録: {maso_goroku}")
+        if 'りつの晩御飯' in message.content:
+            with open('ice.txt', 'r') as f:
+                ice_list = f.read().split("\n")
+            ice = random.choice(ice_list)
+            await message.channel.send(f"りつのおすすめ晩御飯: {ice}")
 
 if __name__ == '__main__':
     if "BOT_TOKEN" not in os.environ:
