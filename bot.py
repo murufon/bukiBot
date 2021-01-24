@@ -176,7 +176,7 @@ async def on_message(message):
             random.seed(seed)
             maso_goroku = random.choice(maso_list)
             await message.channel.send(f"今日のまそ語録: {maso_goroku}")
-        if 'りつの晩御飯' in message.content:
+        if 'りつ' in message.content and '晩御飯' in message.content:
             with open('ice.txt', 'r') as f:
                 ice_list = f.read().split("\n")
             ice = random.choice(ice_list)
