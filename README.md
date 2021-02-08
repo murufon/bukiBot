@@ -8,6 +8,13 @@ Heroku側でGitHub連携の設定後、masterブランチにpushするとHeroku�
 
 DiscordのBot Tokenを環境変数として渡しているので、HerokuのSettings/Config Varsに`BOT_TOKEN`という名前でTokenを設定しておいてください
 
+## ブランチ
+- master
+    - 作業用ブランチ
+    - mkdocsの更新もこのブランチで作業する
+- gh-pages
+    - mkdocsコマンドで自動で更新される
+
 ## ローカルへの開発環境の構築
 
 ```
