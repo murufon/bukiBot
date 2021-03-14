@@ -2,18 +2,12 @@
 
 ## リポジトリ
 このbotのプログラムおよびこのドキュメントは以下のリポジトリに含まれています
-[https://github.com/murufon/bukiBot](https://github.com/murufon/bukiBot)
-
-<!--
-## 開発用サーバー
-開発&テスト用のDiscordサーバーは以下のリンクから参加できます
-[https://discord.gg/bxyrsJ](https://discord.gg/bxyrsJ)
--->
+<a href="https://github.com/murufon/bukiBot" target="_blank">https://github.com/murufon/bukiBot</a>
 
 ## 連絡先
-Twitter: [@murufon](https://twitter.com/murufon)
-Discord: murufon#9647
+- Twitter: <a href="https://twitter.com/murufon" target="_blank">@murufon</a>
+- Discord: murufon#9647
 
 ## 使用しているAPI
-[https://stat.ink/api-info/weapon2](https://stat.ink/api-info/weapon2)
-[https://spla2.yuu26.com](https://spla2.yuu26.com)
+- <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a>
+- <a href="https://spla2.yuu26.com" target="_blank">https://spla2.yuu26.com</a>

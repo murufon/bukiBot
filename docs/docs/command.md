@@ -3,11 +3,11 @@
 
 ## buki
 全てのブキからランダムに1つ選びます
-ブキのリストは [https://stat.ink/api-info/weapon2](https://stat.ink/api-info/weapon2) から拝借しています`buki`/`ぶき`/`ブキ`/`武器`/`weapon`/`うえぽん`/`ウエポン`は同じ動作です
+ブキのリストは <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> から拝借しています`buki`/`ぶき`/`ブキ`/`武器`/`weapon`/`うえぽん`/`ウエポン`は同じ動作です
 
 ## <ブキの種類>
 指定した種類のブキからランダムに1つ選びます
-ブキの種類は [https://stat.ink/api-info/weapon2](https://stat.ink/api-info/weapon2) のカテゴリ2から拝借しています
+ブキの種類は <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> のカテゴリ2から拝借しています
 `<ブキの種類>`/`/buki <ブキの種類>`は同じ動作です
 
 ## gachima

@@ -1,5 +1,5 @@
 # bukiBot
-splatoon2ブキルーレット用discord bot
+splatoon2ブキルーレット用discord bot(むる太郎)
 
 https://bukibot.ml
 

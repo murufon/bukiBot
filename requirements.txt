@@ -8,5 +8,4 @@ requests
 # mkdocs
 mkdocs
 mkdocs-material
-markdown3-newtab
 mdx_linkify

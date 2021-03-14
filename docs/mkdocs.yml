@@ -1,6 +1,6 @@
-site_name: ブキルーレット
+site_name: むる太郎
 nav:
-    - 導入方法: index.md
+    - むる太郎とは: index.md
     - コマンド: command.md
     - about: about.md
     - 更新履歴: changeLog.md
@@ -9,4 +9,3 @@ theme: material
 site_author: murufon
 markdown_extensions:
     - nl2br
-    - markdown_newtab
