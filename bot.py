@@ -145,10 +145,11 @@ async def on_message(message):
     if match_result:
         dice_num = int(match_result.group('dice_num'))
         dice_size = int(match_result.group('dice_size'))
-        dice_sum = 0
-        for i in range(dice_num):
-            dice_sum += random.randint(1, dice_size)
-        await message.channel.send(str(dice_sum))
+        if dice_num < 9999 and dice_size < 9999:
+            dice_sum = 0
+            for i in range(dice_num):
+                dice_sum += random.randint(1, dice_size)
+            await message.channel.send(str(dice_sum))
 
     if client.user in message.mentions: # if mentioned
         if 'おはよ' in message.content:
