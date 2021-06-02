@@ -133,7 +133,7 @@ async def on_message(message):
         msg = getStageInfo(link, key, showRule=False)
         await message.channel.send(msg)
 
-    if message.content.lower() in ['salmon', 'samon', 'sa-mon', 'サーモン', 'さーもん', 'サーモンラン', 'さーもんらん', 'coop', 'コープ', 'こーぷ', 'サケ', 'さけ', 'シャケ', 'しゃけ', '鮭']:
+    if message.content.lower() in ['salmon', 'samon', 'sa-mon', 'サーモン', 'さーもん', 'サーモンラン', 'さーもんらん', 'サモラン', 'さもらん', 'coop', 'コープ', 'こーぷ', 'サケ', 'さけ', 'シャケ', 'しゃけ', '鮭']:
         key = "サーモンラン"
         link = "coop/schedule"
         msg = getCoopInfo(link, key)
