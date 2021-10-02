@@ -3,7 +3,7 @@ Splatoon2のブキルーレットを行ってくれるdiscord botです
 
 ステージやルールを教えてくれる機能もあります
 
-コマンドの詳細は[こちら](/command)
+コマンドの詳細は[こちら](./command)
 ## 導入方法
 
 
@@ -16,4 +16,4 @@ Splatoon2のブキルーレットを行ってくれるdiscord botです
 ## about
 何かありましたらTwitter: <a href="https://twitter.com/murufon" target="_blank">@murufon</a>までご連絡ください
 
-その他詳細は[こちら](/about)
+その他詳細は[こちら](./about)
