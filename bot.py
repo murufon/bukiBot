@@ -151,6 +151,14 @@ async def on_message(message):
                 dice_sum += random.randint(1, dice_size)
             await message.channel.send(str(dice_sum))
 
+    if 'まそ語録' in message.content:
+        with open('maso.txt', 'r') as f:
+            maso_list = f.read().split("\n")
+        seed = getDailyRandomString() + str(message.author.id)
+        random.seed(seed)
+        maso_goroku = random.choice(maso_list)
+        await message.channel.send(f"今日のまそ語録: {maso_goroku}")
+
     if client.user in message.mentions: # if mentioned
         if 'おはよ' in message.content:
             msg = "おはようございます！"
@@ -170,13 +178,6 @@ async def on_message(message):
         if 'たんたん' in message.content:
             msg = "初めましてたんたん麺ですよろしくお願いします！"
             await message.channel.send(msg)
-        if 'まそ語録' in message.content:
-            with open('maso.txt', 'r') as f:
-                maso_list = f.read().split("\n")
-            seed = getDailyRandomString() + str(message.author.id)
-            random.seed(seed)
-            maso_goroku = random.choice(maso_list)
-            await message.channel.send(f"今日のまそ語録: {maso_goroku}")
         if 'りつ' in message.content and '晩御飯' in message.content:
             with open('ice.txt', 'r') as f:
                 ice_list = f.read().split("\n")
