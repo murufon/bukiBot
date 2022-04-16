@@ -1,4 +1,5 @@
 site_name: むる太郎
+site_url: https://murufon.github.io/bukiBot/
 nav:
     - むる太郎とは: index.md
     - コマンド: command.md
