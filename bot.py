@@ -15,7 +15,8 @@ import requests
 
 logging.basicConfig(level=logging.INFO)
 
-client = discord.Client()
+# client = discord.Client()
+client = discord.AutoShardedClient()
 
 def getJsonFromAPI(link):
     headers = {"User-Agent": "@murufon"}
