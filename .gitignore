@@ -5,6 +5,9 @@
 __pycache__
 /tmp/
 
+# mysql
+/mysql-storage/
+
 # vscode
 /.vscode/
 

@@ -1,11 +1,12 @@
-# discord bot
+### discord bot ###
 discord.py
-pynacl
-google-cloud-texttospeech
+#pynacl
+#google-cloud-texttospeech
 python-dotenv
 requests
+Django
 
-# mkdocs
+### mkdocs ###
 mkdocs
 mkdocs-material
 mdx_linkify

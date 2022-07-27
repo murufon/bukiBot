@@ -18,11 +18,9 @@ DiscordのBot Tokenを環境変数として渡しているので、HerokuのSett
 ## ローカルへの開発環境の構築
 
 ```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
 cp .env.sample .env
 vim .env
+docker-compose up -d
 ```
 
 ## ローカルでbotの実行
