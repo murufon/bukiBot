@@ -5,6 +5,7 @@ discord.py
 python-dotenv
 requests
 Django
+mysqlclient
 
 ### mkdocs ###
 mkdocs

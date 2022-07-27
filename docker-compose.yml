@@ -7,6 +7,10 @@ services:
     volumes:
       - "./:/root/bukibot"
     command: python bot.py
+    environment:
+      MYSQL_DATABASE: "bukibot"
+      MYSQL_USER: "bukibot"
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
     depends_on:
       - db
   db:
