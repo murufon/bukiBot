@@ -21,6 +21,9 @@ DiscordのBot Tokenを環境変数として渡しているので、HerokuのSett
 cp .env.sample .env
 vim .env
 docker-compose up -d
+docker-compose exec bot bash
+python manage.py migrate
+python manage.py createsuperuser
 ```
 
 ## ローカルでbotの実行

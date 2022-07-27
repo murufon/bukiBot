@@ -6,6 +6,8 @@ services:
       context: "."
     volumes:
       - "./:/root/bukibot"
+    ports:
+      - "$WEBAPP_PORT:8000"
     command: python bot.py
     environment:
       MYSQL_DATABASE: "bukibot"
