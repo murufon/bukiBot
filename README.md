@@ -6,7 +6,7 @@ https://bukibot.ml
 ## デプロイ
 Heroku側でGitHub連携の設定後、masterブランチにpushするとHerokuにデプロイされます
 
-DiscordのBot Tokenを環境変数として渡しているので、HerokuのSettings/Config Varsに`BOT_TOKEN`という名前でTokenを設定しておいてください
+DiscordのBot Tokenを環境変数として渡しているので、HerokuのSettings/Config Varsに`DISCORDBOT_TOKEN`という名前でTokenを設定しておいてください
 
 ## ブランチ
 - master
@@ -67,12 +67,5 @@ heroku logs -a bukibot
 heroku ps -a bukibot
 ```
 
-## 初期セットアップ(このリポジトリをcloneして使う場合には不要)
-```
-mkdocs new docs
-```
-
 ## 開発
 `bot.py`は本番で動いている
-
-`main.py`は開発用。GoogleTTSなどの実験用

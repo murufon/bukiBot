@@ -185,9 +185,8 @@ async def on_message(message):
             ice = random.choice(ice_list)
             await message.channel.send(f"りつのおすすめ晩御飯: {ice}")
 
+def run(DISCORDBOT_TOKEN):
+    client.run(DISCORDBOT_TOKEN)
+
 if __name__ == '__main__':
-    if "BOT_TOKEN" not in os.environ:
-        dotenv_path = join(dirname(__file__), '.env')
-        load_dotenv(dotenv_path)
-    BOT_TOKEN = os.environ.get("BOT_TOKEN")
-    client.run(BOT_TOKEN)
+    print("[Bot] - You must run this bot via your manage.py file: python manage.py run-discorbot")
