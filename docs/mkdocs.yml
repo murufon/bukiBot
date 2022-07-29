@@ -5,6 +5,7 @@ nav:
     - コマンド: command.md
     - about: about.md
     - 更新履歴: changeLog.md
+    - プライバシーポリシー: privacypolicy.md
 # theme: readthedocs
 theme: material
 site_author: murufon

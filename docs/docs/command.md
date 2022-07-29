@@ -5,6 +5,8 @@
 全てのブキからランダムに1つ選びます
 ブキのリストは <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> から拝借しています`buki`/`ぶき`/`ブキ`/`武器`/`weapon`/`うえぽん`/`ウエポン`は同じ動作です
 
+![buki](./images/buki.png)
+
 ## <ブキの種類>
 指定した種類のブキからランダムに1つ選びます
 ブキの種類は <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> のカテゴリ2から拝借しています
@@ -13,6 +15,8 @@
 ## gachima
 ガチマッチの直近のスケジュールを3件表示します
 `gachi`/`ガチ`/`がち`/`gachima`/`ガチマ`/`がちま`/`ガチマッチ`/`がちまっち`は同じ動作です
+
+![buki](./images/gachima.png)
 
 ## riguma
 リーグマッチの直近のスケジュールを3件表示します

@@ -39,9 +39,8 @@ python -m unittest
 ```
 
 ## mkdocs
-venvファイルの読み込みとディレクトリ移動
+ディレクトリ移動
 ```
-source venv/bin/activate
 cd docs
 ```
 
