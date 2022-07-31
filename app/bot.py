@@ -1,5 +1,7 @@
 # coding: UTF-8
 import discord
+from discord import app_commands
+
 import logging
 
 import os
@@ -8,6 +10,7 @@ from dotenv import load_dotenv
 
 import json
 import random
+from typing import Literal
 
 from datetime import datetime, timedelta, timezone
 import re
@@ -16,7 +19,10 @@ import requests
 logging.basicConfig(level=logging.INFO)
 
 # client = discord.Client()
-client = discord.AutoShardedClient()
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.AutoShardedClient(intents=intents)
+tree = app_commands.CommandTree(client)
 
 def getJsonFromAPI(link):
     headers = {"User-Agent": "@murufon"}
@@ -64,17 +70,28 @@ def getDailyRandomString():
     now_str = str(now.strftime("%Y%m%d"))
     return now_str
 
+from discord.ext import tasks
+if 'GUILD_ID' in os.environ:
+    guild = discord.Object(os.environ.get('GUILD_ID'))
+else:
+    guild = None
+@tasks.loop(seconds=60) # TODO: rate limitに引っかかるかも
+async def loop():
+  await tree.sync(guild=guild)
+
 @client.event
 async def on_ready():
-    print('-----')
-    print('logged in')
-    print(f"user name: {client.user.name}")
-    print(f"user id: {client.user.id}")
-    print(f"discord.py version: {discord.__version__}")
-    print("servers connected to:")
+    logging.info('-----')
+    logging.info('logged in')
+    logging.info(f"user name: {client.user.name}")
+    logging.info(f"user id: {client.user.id}")
+    logging.info(f"discord.py version: {discord.__version__}")
+    logging.info("servers connected to:")
     for server in client.guilds:
-        print(f"* {server.name}")
-    print('-----')
+        logging.info(f"* {server.name}")
+    logging.info('-----')
+    await tree.sync(guild=guild)
+    loop.start()
 
 @client.event
 async def on_message(message):
@@ -82,26 +99,26 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if message.content.lower() in ['buki', 'ぶき', 'ブキ', '武器', 'weapon', 'うえぽん', 'ウエポン']:
-        json_data = json.load(open('weapon.json','r'))
-        buki = random.choice(json_data)
-        ja_name = buki["name"]["ja_JP"]
-        en_name = buki["name"]["en_US"]
-        path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-        user = message.author.display_name
-        await message.channel.send(f"{user}さんにおすすめのブキは{ja_name}({en_name})！" , file=discord.File(path))
+    # if message.content.lower() in ['buki', 'ぶき', 'ブキ', '武器', 'weapon', 'うえぽん', 'ウエポン']:
+    #     json_data = json.load(open('weapon.json','r'))
+    #     buki = random.choice(json_data)
+    #     ja_name = buki["name"]["ja_JP"]
+    #     en_name = buki["name"]["en_US"]
+    #     path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+    #     user = message.author.display_name
+    #     await message.channel.send(f"{user}さんにおすすめのブキは{ja_name}({en_name})！" , file=discord.File(path))
 
-    if message.content.lower() in ['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']:
-        type_name = message.content.lower()
-        json_data = json.load(open('weapon.json','r'))
-        filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type_name, json_data))
-        if filtered_data:
-            buki = random.choice(filtered_data)
-            ja_name = buki["name"]["ja_JP"]
-            en_name = buki["name"]["en_US"]
-            path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-            user = message.author.display_name
-            await message.channel.send(f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！" , file=discord.File(path))
+    # if message.content.lower() in ['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']:
+    #     type_name = message.content.lower()
+    #     json_data = json.load(open('weapon.json','r'))
+    #     filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type_name, json_data))
+    #     if filtered_data:
+    #         buki = random.choice(filtered_data)
+    #         ja_name = buki["name"]["ja_JP"]
+    #         en_name = buki["name"]["en_US"]
+    #         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+    #         user = message.author.display_name
+    #         await message.channel.send(f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！" , file=discord.File(path))
 
     cmd = message.content.split(" ")
     if cmd[0] == "/buki" and cmd[1:2]: # cmd[2]が存在するかどうか
@@ -116,29 +133,29 @@ async def on_message(message):
             user = message.author.display_name
             await message.channel.send(f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！" , file=discord.File(path))
 
-    if message.content.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
-        key = "ガチマッチ"
-        link = "gachi/schedule"
-        msg = getStageInfo(link, key)
-        await message.channel.send(msg)
+    # if message.content.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
+    #     key = "ガチマッチ"
+    #     link = "gachi/schedule"
+    #     msg = getStageInfo(link, key)
+    #     await message.channel.send(msg)
 
-    if message.content.lower() in ['league', 'riguma', 'リグマ', 'りぐま', 'リーグマッチ', 'りーぐまっち']:
-        key = "リーグマッチ"
-        link = "league/schedule"
-        msg = getStageInfo(link, key)
-        await message.channel.send(msg)
+    # if message.content.lower() in ['league', 'riguma', 'リグマ', 'りぐま', 'リーグマッチ', 'りーぐまっち']:
+    #     key = "リーグマッチ"
+    #     link = "league/schedule"
+    #     msg = getStageInfo(link, key)
+    #     await message.channel.send(msg)
 
-    if message.content.lower() in ['regular', 'レギュラー', 'れぎゅらー', 'レギュラーマッチ', 'れぎゅらーまっち', 'nawabari', 'ナワバリ', 'なわばり', 'ナワバリバトル', 'なわばりばとる']:
-        key = "ナワバリバトル"
-        link = "regular/schedule"
-        msg = getStageInfo(link, key, showRule=False)
-        await message.channel.send(msg)
+    # if message.content.lower() in ['regular', 'レギュラー', 'れぎゅらー', 'レギュラーマッチ', 'れぎゅらーまっち', 'nawabari', 'ナワバリ', 'なわばり', 'ナワバリバトル', 'なわばりばとる']:
+    #     key = "ナワバリバトル"
+    #     link = "regular/schedule"
+    #     msg = getStageInfo(link, key, showRule=False)
+    #     await message.channel.send(msg)
 
-    if message.content.lower() in ['salmon', 'samon', 'sa-mon', 'サーモン', 'さーもん', 'サーモンラン', 'さーもんらん', 'サモラン', 'さもらん', 'coop', 'コープ', 'こーぷ', 'サケ', 'さけ', 'シャケ', 'しゃけ', '鮭']:
-        key = "サーモンラン"
-        link = "coop/schedule"
-        msg = getCoopInfo(link, key)
-        await message.channel.send(msg)
+    # if message.content.lower() in ['salmon', 'samon', 'sa-mon', 'サーモン', 'さーもん', 'サーモンラン', 'さーもんらん', 'サモラン', 'さもらん', 'coop', 'コープ', 'こーぷ', 'サケ', 'さけ', 'シャケ', 'しゃけ', '鮭']:
+    #     key = "サーモンラン"
+    #     link = "coop/schedule"
+    #     msg = getCoopInfo(link, key)
+    #     await message.channel.send(msg)
 
     dice_pattern = '^(?P<dice_num>\d+)d(?P<dice_size>\d+)$' # example: 3d6
     content = message.content.lower()
@@ -185,8 +202,60 @@ async def on_message(message):
             ice = random.choice(ice_list)
             await message.channel.send(f"りつのおすすめ晩御飯: {ice}")
 
+@tree.command(guild=guild)
+async def buki(interaction: discord.Interaction):
+    json_data = json.load(open('weapon.json','r'))
+    buki = random.choice(json_data)
+    ja_name = buki["name"]["ja_JP"]
+    en_name = buki["name"]["en_US"]
+    path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+    user = interaction.user.display_name
+    await interaction.response.send_message(f"{user}さんにおすすめのブキは{ja_name}({en_name})！", file=discord.File(path))
+
+# @app_commands.command(guild=guild)
+@tree.command(guild=guild)
+@app_commands.describe(type_name='ブキの種類')
+async def buki_type(interaction: discord.Interaction, type_name: Literal['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']):
+    json_data = json.load(open('weapon.json','r'))
+    filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type_name, json_data))
+    if filtered_data:
+        buki = random.choice(filtered_data)
+        ja_name = buki["name"]["ja_JP"]
+        en_name = buki["name"]["en_US"]
+        path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+        user = interaction.user.display_name
+        await interaction.response.send_message(f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！" , file=discord.File(path))
+
+@tree.command(guild=guild)
+async def gachima(interaction: discord.Interaction):
+    key = "ガチマッチ"
+    link = "gachi/schedule"
+    msg = getStageInfo(link, key)
+    await interaction.response.send_message(msg)
+
+@tree.command(guild=guild)
+async def riguma(interaction: discord.Interaction):
+    key = "リーグマッチ"
+    link = "league/schedule"
+    msg = getStageInfo(link, key)
+    await interaction.response.send_message(msg)
+
+@tree.command(guild=guild)
+async def nawabari(interaction: discord.Interaction):
+    key = "ナワバリバトル"
+    link = "regular/schedule"
+    msg = getStageInfo(link, key, showRule=False)
+    await interaction.response.send_message(msg)
+
+@tree.command(guild=guild)
+async def salmon(interaction: discord.Interaction):
+    key = "サーモンラン"
+    link = "coop/schedule"
+    msg = getCoopInfo(link, key)
+    await interaction.response.send_message(msg)
+
 def run(DISCORDBOT_TOKEN):
     client.run(DISCORDBOT_TOKEN)
 
 if __name__ == '__main__':
-    print("[Bot] - You must run this bot via your manage.py file: python manage.py run-discorbot")
+    logging.info("[Bot] - You must run this bot via your manage.py file: python manage.py run-discorbot")
