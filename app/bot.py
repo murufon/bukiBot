@@ -260,6 +260,18 @@ def get_registered_channels_msg(server, guild):
     return msg
 
 @tree.command(guild=guild)
+async def channel_info(interaction: discord.Interaction):
+    guild = interaction.guild
+    if not guild:
+        await interaction.response.send_message('[Error]: サーバーが見つかりません')
+    server, created = Server.objects.get_or_create(
+        server_id=guild.id,
+        defaults={'server_name': guild.name},
+    )
+    msg = get_registered_channels_msg(server, guild)
+    await interaction.response.send_message(msg)
+
+@tree.command(guild=guild)
 async def channel_set(interaction: discord.Interaction, channel: str):
     guild = interaction.guild
     if not guild:
