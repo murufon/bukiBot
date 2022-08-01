@@ -217,29 +217,53 @@ async def buki(interaction: discord.Interaction):
 
 @tree.command(guild=guild)
 async def buki_all(interaction: discord.Interaction):
-    json_data = json.load(open('weapon.json','r'))
-    buki = random.choice(json_data)
-    ja_name = buki["name"]["ja_JP"]
-    en_name = buki["name"]["en_US"]
-    path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-    user = interaction.user.display_name
-    await interaction.response.send_message(f"{user}さんにおすすめのブキは{ja_name}({en_name})！", file=discord.File(path))
-
-def get_registered_channels(server, guild):
-    msg = '以下のチャンネルが登録済みです'
-    msg += '\n```'
+    guild = interaction.guild
+    if not guild:
+        await interaction.response.send_message('サーバーが見つかりません')
+    server, created = Server.objects.get_or_create(
+        server_id=guild.id,
+        defaults={'server_name': guild.name},
+    )
     vcs = [v.voicechat_id for v in RouletteVoiceChat.objects.filter(server=server)]
     registered_vcs = [v for v in guild.voice_channels if str(v.id) in vcs]
-    for v in registered_vcs:
-        msg += f'\n* {v.name}'
-    msg += '\n```'
+    if not registered_vcs:
+        await interaction.response.send_message('[Error]: チャンネルが登録されていません')
+        return
+    members = list()
+    for vc in registered_vcs:
+        members.extend(vc.members)
+    if not members:
+        await interaction.response.send_message('[Error]: メンバーがいません')
+        return
+    json_data = json.load(open('weapon.json','r'))
+    roulette_results = list()
+    for m in members:
+        buki = random.choice(json_data)
+        ja_name = buki["name"]["ja_JP"]
+        en_name = buki["name"]["en_US"]
+        # path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+        user = m.display_name
+        roulette_results.append(f"{user}さんにおすすめのブキは{ja_name}({en_name})！")
+    await interaction.response.send_message("\n".join(roulette_results))
+
+def get_registered_channels_msg(server, guild):
+    vcs = [v.voicechat_id for v in RouletteVoiceChat.objects.filter(server=server)]
+    registered_vcs = [v for v in guild.voice_channels if str(v.id) in vcs]
+    if registered_vcs:
+        msg = '以下のチャンネルが登録済みです'
+        msg += '\n```'
+        for v in registered_vcs:
+            msg += f'\n* {v.name}'
+        msg += '\n```'
+    else:
+        msg = '登録済みのチャンネルはありません'
     return msg
 
 @tree.command(guild=guild)
 async def channel_set(interaction: discord.Interaction, channel: str):
     guild = interaction.guild
     if not guild:
-        await interaction.response.send_message('サーバーが見つかりません')
+        await interaction.response.send_message('[Error]: サーバーが見つかりません')
     server, created = Server.objects.get_or_create(
         server_id=guild.id,
         defaults={'server_name': guild.name},
@@ -249,24 +273,58 @@ async def channel_set(interaction: discord.Interaction, channel: str):
     voice_channels = [c for c in guild.voice_channels if str(c.id) == channel or str(c.name) == channel]
     if len(voice_channels) > 1:
         msg = f'[Error]: "{channel}"に該当するチャンネルが複数あります'
-        msg += '\n' + get_registered_channels(server, guild)
+        msg += '\n' + get_registered_channels_msg(server, guild)
         await interaction.response.send_message(msg)
     elif len(voice_channels) == 1:
         voice_channel = voice_channels[0]
         voicechat = RouletteVoiceChat.objects.filter(server=server, voicechat_id=voice_channel.id)
         if voicechat.exists():
             msg = f'[Error]: "{channel}"はすでに登録されています'
-            msg += '\n' + get_registered_channels(server, guild)
+            msg += '\n' + get_registered_channels_msg(server, guild)
             await interaction.response.send_message(msg)
         else:
-            vc = RouletteVoiceChat(server=server, voicechat_id=voice_channel.id)
+            vc = RouletteVoiceChat(server=server, voicechat_id=voice_channel.id, voicechat_name=voice_channel.name)
             vc.save()
             msg = f'"{voice_channel.name}"を登録しました'
-            msg += '\n' + get_registered_channels(server, guild)
+            msg += '\n' + get_registered_channels_msg(server, guild)
             await interaction.response.send_message(msg)
     else: # len(voice_channels) == 0
-        msg = f'[Error]: ["{channel}"]に該当するチャンネルがありません'
-        msg += '\n' + get_registered_channels(server, guild)
+        msg = f'[Error]: "{channel}"に該当するチャンネルがありません'
+        msg += '\n' + get_registered_channels_msg(server, guild)
+        await interaction.response.send_message(msg)
+
+@tree.command(guild=guild)
+async def channel_remove(interaction: discord.Interaction, channel: str):
+    guild = interaction.guild
+    if not guild:
+        await interaction.response.send_message('[Error]: サーバーが見つかりません')
+    server, created = Server.objects.get_or_create(
+        server_id=guild.id,
+        defaults={'server_name': guild.name},
+    )
+
+    # voice_channelsのidまたはnameで検索
+    voice_channels = [c for c in guild.voice_channels if str(c.id) == channel or str(c.name) == channel]
+    if len(voice_channels) > 1:
+        msg = f'[Error]: "{channel}"に該当するチャンネルが複数あります'
+        msg += '\n' + get_registered_channels_msg(server, guild)
+        await interaction.response.send_message(msg)
+    elif len(voice_channels) == 1:
+        voice_channel = voice_channels[0]
+        voicechat = RouletteVoiceChat.objects.filter(server=server, voicechat_id=voice_channel.id)
+        if voicechat.exists():
+            vc = voicechat.first()
+            vc.delete()
+            msg = f'"{voice_channel.name}"を登録解除しました'
+            msg += '\n' + get_registered_channels_msg(server, guild)
+            await interaction.response.send_message(msg)
+        else:
+            msg = f'[Error]: "{channel}"に該当するチャンネルは登録されていません'
+            msg += '\n' + get_registered_channels_msg(server, guild)
+            await interaction.response.send_message(msg)
+    else: # len(voice_channels) == 0
+        msg = f'[Error]: "{channel}"に該当するチャンネルがありません'
+        msg += '\n' + get_registered_channels_msg(server, guild)
         await interaction.response.send_message(msg)
 
 @tree.command(guild=guild)
