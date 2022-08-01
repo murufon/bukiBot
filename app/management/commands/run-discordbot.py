@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
 import os
-from app.models import Server, ServerConfig
 from app.bot import run
 
 class Command(BaseCommand):

@@ -6,11 +6,23 @@ services:
       context: "."
     volumes:
       - "./:/root/bukibot"
-    ports:
-      - "$WEBAPP_PORT:8000"
     command: python manage.py run-discordbot
     environment:
       DISCORDBOT_TOKEN: $DISCORDBOT_TOKEN
+      MYSQL_DATABASE: "bukibot"
+      MYSQL_USER: "bukibot"
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    depends_on:
+      - db
+  webapp:
+    build:
+      context: "."
+    volumes:
+      - "./:/root/bukibot"
+    ports:
+      - "$WEBAPP_PORT:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
       MYSQL_DATABASE: "bukibot"
       MYSQL_USER: "bukibot"
       MYSQL_PASSWORD: $MYSQL_PASSWORD
