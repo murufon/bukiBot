@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO)
 
 # client = discord.Client()
 intents = discord.Intents.default()
-intents.message_content = True
+# intents.message_content = True
 client = discord.AutoShardedClient(intents=intents)
 tree = app_commands.CommandTree(client)
 
