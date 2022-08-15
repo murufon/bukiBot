@@ -12,7 +12,7 @@ import json
 import random
 from typing import Literal
 
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 import re
 import requests
 
@@ -340,10 +340,10 @@ async def channel_remove(interaction: discord.Interaction, channel: str):
         await interaction.response.send_message(msg)
 
 @tree.command(guild=guild)
-@app_commands.describe(type_name='ブキの種類')
-async def buki_type(interaction: discord.Interaction, type_name: Literal['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']):
+@app_commands.describe(type='ブキの種類')
+async def buki_type(interaction: discord.Interaction, type: Literal['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']):
     json_data = json.load(open('weapon.json','r'))
-    filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type_name, json_data))
+    filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type, json_data))
     if filtered_data:
         buki = random.choice(filtered_data)
         ja_name = buki["name"]["ja_JP"]
@@ -378,6 +378,22 @@ async def salmon(interaction: discord.Interaction):
     key = "サーモンラン"
     link = "coop/schedule"
     msg = getCoopInfo(link, key)
+    await interaction.response.send_message(msg)
+
+@tree.command(guild=guild)
+async def countdown(interaction: discord.Interaction):
+    JST = timezone(timedelta(hours=+9), 'JST')
+    end_day = datetime(2022, 9, 9, tzinfo=JST)
+    today = datetime.now(JST)
+    delta = end_day - today
+    days = delta.days + 1
+    logging.info(end_day)
+    logging.info(today)
+    logging.info(delta)
+    if days > 0:
+        msg = "Splatoon3発売まであと" + str(days) + "日！！\nhttps://pbs.twimg.com/profile_banners/2888006497/1650633775/1500x500"
+    else:
+        msg = "Splatoon3発売！！\nhttps://pbs.twimg.com/profile_banners/2888006497/1650633775/1500x500"
     await interaction.response.send_message(msg)
 
 # @tree.command(guild=guild)
