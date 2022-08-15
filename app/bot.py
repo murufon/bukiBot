@@ -391,9 +391,9 @@ async def countdown(interaction: discord.Interaction):
     logging.info(today)
     logging.info(delta)
     if days > 0:
-        msg = "Splatoon3発売まであと" + str(days) + "日！！\nhttps://pbs.twimg.com/profile_banners/2888006497/1650633775/1500x500"
+        msg = "Splatoon3発売まであと" + str(days) + "日！！"
     else:
-        msg = "Splatoon3発売！！\nhttps://pbs.twimg.com/profile_banners/2888006497/1650633775/1500x500"
+        msg = "Splatoon3発売！！"
     await interaction.response.send_message(msg)
 
 # @tree.command(guild=guild)
