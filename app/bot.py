@@ -205,7 +205,7 @@ async def on_ready():
     #         ice = random.choice(ice_list)
     #         await message.channel.send(f"りつのおすすめ晩御飯: {ice}")
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='buki', description='ブキルーレット')
 async def buki(interaction: discord.Interaction):
     json_data = json.load(open('weapon.json','r'))
     buki = random.choice(json_data)
@@ -215,7 +215,7 @@ async def buki(interaction: discord.Interaction):
     user = interaction.user.display_name
     await interaction.response.send_message(f"{user}さんにおすすめのブキは{ja_name}({en_name})！", file=discord.File(path))
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='buki_all', description='一括ブキルーレット')
 async def buki_all(interaction: discord.Interaction):
     guild = interaction.guild
     if not guild:
@@ -259,7 +259,7 @@ def get_registered_channels_msg(server, guild):
         msg = '登録済みのチャンネルはありません'
     return msg
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='channel_info', description='登録したボイスチャンネル一覧')
 async def channel_info(interaction: discord.Interaction):
     guild = interaction.guild
     if not guild:
@@ -271,7 +271,7 @@ async def channel_info(interaction: discord.Interaction):
     msg = get_registered_channels_msg(server, guild)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='channel_set', description='ボイスチャンネルを登録')
 async def channel_set(interaction: discord.Interaction, channel: str):
     guild = interaction.guild
     if not guild:
@@ -305,7 +305,7 @@ async def channel_set(interaction: discord.Interaction, channel: str):
         msg += '\n' + get_registered_channels_msg(server, guild)
         await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='channel_remove', description='ボイスチャンネルの登録を解除')
 async def channel_remove(interaction: discord.Interaction, channel: str):
     guild = interaction.guild
     if not guild:
@@ -339,7 +339,7 @@ async def channel_remove(interaction: discord.Interaction, channel: str):
         msg += '\n' + get_registered_channels_msg(server, guild)
         await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='buki_type', description='ブキ種ごとのルーレット')
 @app_commands.describe(type='ブキの種類')
 async def buki_type(interaction: discord.Interaction, type: Literal['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']):
     json_data = json.load(open('weapon.json','r'))
@@ -350,9 +350,9 @@ async def buki_type(interaction: discord.Interaction, type: Literal['シュー�
         en_name = buki["name"]["en_US"]
         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
         user = interaction.user.display_name
-        await interaction.response.send_message(f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！" , file=discord.File(path))
+        await interaction.response.send_message(f"{user}さんにおすすめの{type}は{ja_name}({en_name})！" , file=discord.File(path))
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='gachima', description='ガチマッチのスケジュールを表示')
 async def gachima(interaction: discord.Interaction):
     key = "ガチマッチ"
     link = "gachi/schedule"
@@ -366,21 +366,21 @@ async def riguma(interaction: discord.Interaction):
     msg = getStageInfo(link, key)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='nawabari', description='ナワバリバトルのスケジュールを表示')
 async def nawabari(interaction: discord.Interaction):
     key = "ナワバリバトル"
     link = "regular/schedule"
     msg = getStageInfo(link, key, showRule=False)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='salmon', description='サーモンランのスケジュールを表示')
 async def salmon(interaction: discord.Interaction):
     key = "サーモンラン"
     link = "coop/schedule"
     msg = getCoopInfo(link, key)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='countdown', description='Splatoon3までの残り日数を表示')
 async def countdown(interaction: discord.Interaction):
     JST = timezone(timedelta(hours=+9), 'JST')
     end_day = datetime(2022, 9, 9, tzinfo=JST)
