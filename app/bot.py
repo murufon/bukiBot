@@ -396,31 +396,30 @@ async def countdown(interaction: discord.Interaction):
         msg = "Splatoon3発売！！"
     await interaction.response.send_message(msg)
 
-@tree.command(guild_ids=[776432658208391189], name='yoribd')
-async def yoribd(interaction: discord.Interaction):
-    # end_day = datetime(2022, 9, 9, tzinfo=JST)
+# @tree.command(name='help', description='ヘルプを表示')
+# async def help(interaction: discord.Interaction, option):
+#     if not option:
+        
 
-    # delta = end_day - today
-    # days = delta.days + 1
 
-    JST = timezone(timedelta(hours=+9), 'JST')
-    today = datetime.now(JST)
-    birth_year = today.year
-    birth_month = 7
-    birth_date = 30
-    birth_day = datetime.date(birth_year,birth_month,birth_date)
-    calc = birth_day - today
-    day = calc.days
-    if day < 0:
-        birth_year += 1
-        birth_day = datetime.date(birth_year,birth_month,birth_date)
-        calc = birth_day - today
-        day = calc.days
-    if day == 0:
-        msg = "お誕生日おめでとう！！"
-    else:
-        msg = "誕生日まであと" + str(day) + "日！！"
-    await interaction.response.send_message(msg)
+#     JST = timezone(timedelta(hours=+9), 'JST')
+#     today = datetime.now(JST)
+#     birth_year = today.year
+#     birth_month = 7
+#     birth_date = 30
+#     birth_day = datetime.date(birth_year,birth_month,birth_date)
+#     calc = birth_day - today
+#     day = calc.days
+#     if day < 0:
+#         birth_year += 1
+#         birth_day = datetime.date(birth_year,birth_month,birth_date)
+#         calc = birth_day - today
+#         day = calc.days
+#     if day == 0:
+#         msg = "お誕生日おめでとう！！"
+#     else:
+#         msg = "誕生日まであと" + str(day) + "日！！"
+#     await interaction.response.send_message(msg)
 
 # @tree.command(guild=guild)
 # async def dice(interaction: discord.Interaction):
