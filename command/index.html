@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://murufon.github.io/bukiBot/command/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
@@ -40,7 +40,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -233,7 +233,7 @@
       
         <li class="md-nav__item">
   <a href="#buki" class="md-nav__link">
-    buki
+    /buki
   </a>
   
 </li>
@@ -280,43 +280,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    &lt;ブキの種類&gt;
+  <a href="#buki_type" class="md-nav__link">
+    /buki_type &lt;ブキの種類&gt;
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#gachima" class="md-nav__link">
-    gachima
+    /gachima
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#riguma" class="md-nav__link">
-    riguma
+    /riguma
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#nawabari" class="md-nav__link">
-    nawabari
+    /nawabari
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#salmon" class="md-nav__link">
-    salmon
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#d" class="md-nav__link">
-    &lt;ダイスの個数&gt;d&lt;ダイスの面&gt;
+    /salmon
   </a>
   
 </li>
@@ -402,7 +395,7 @@
       
         <li class="md-nav__item">
   <a href="#buki" class="md-nav__link">
-    buki
+    /buki
   </a>
   
 </li>
@@ -449,43 +442,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    &lt;ブキの種類&gt;
+  <a href="#buki_type" class="md-nav__link">
+    /buki_type &lt;ブキの種類&gt;
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#gachima" class="md-nav__link">
-    gachima
+    /gachima
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#riguma" class="md-nav__link">
-    riguma
+    /riguma
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#nawabari" class="md-nav__link">
-    nawabari
+    /nawabari
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#salmon" class="md-nav__link">
-    salmon
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#d" class="md-nav__link">
-    &lt;ダイスの個数&gt;d&lt;ダイスの面&gt;
+    /salmon
   </a>
   
 </li>
@@ -506,10 +492,14 @@
 
 <h1 id="_1">コマンド</h1>
 <p>コマンド名のアルファベットは大文字小文字を区別しません</p>
-<h2 id="buki">buki</h2>
+<!-- ## buki
+全てのブキからランダムに1つ選びます
+ブキのリストは <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> から拝借しています`buki`/`ぶき`/`ブキ`/`武器`/`weapon`/`うえぽん`/`ウエポン`は同じ動作です -->
+<h2 id="buki">/buki</h2>
 <p>全てのブキからランダムに1つ選びます<br />
-ブキのリストは <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> から拝借しています<code>buki</code>/<code>ぶき</code>/<code>ブキ</code>/<code>武器</code>/<code>weapon</code>/<code>うえぽん</code>/<code>ウエポン</code>は同じ動作です</p>
-<p><img alt="buki" src="../images/buki.png" /></p>
+ブキのリストは <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> から拝借しています</p>
+<!-- ![buki](./images/buki.png) -->
+
 <h2 id="buki_all">/buki_all</h2>
 <p>登録したボイスチャットにいる人全員に対してブキルーレットをします<br />
 プライベートマッチやリーグマッチでブキルーレットをするときに一人ずつコマンドを打つ手間を省けます<br />
@@ -528,26 +518,41 @@
 <p>ボイスチャットを登録解除します</p>
 <h3 id="channel_info">/channel_info</h3>
 <p>登録したボイスチャットの一覧を表示します</p>
-<h2 id="_3">&lt;ブキの種類&gt;</h2>
+<!-- ## <ブキの種類>
+指定した種類のブキからランダムに1つ選びます
+ブキの種類は <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> のカテゴリ2から拝借しています
+`<ブキの種類>`/`/buki <ブキの種類>`は同じ動作です -->
+<h2 id="buki_type">/buki_type &lt;ブキの種類&gt;</h2>
 <p>指定した種類のブキからランダムに1つ選びます<br />
-ブキの種類は <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> のカテゴリ2から拝借しています<br />
-<code>&lt;ブキの種類&gt;</code>/<code>/buki &lt;ブキの種類&gt;</code>は同じ動作です</p>
-<h2 id="gachima">gachima</h2>
-<p>ガチマッチの直近のスケジュールを3件表示します<br />
-<code>gachi</code>/<code>ガチ</code>/<code>がち</code>/<code>gachima</code>/<code>ガチマ</code>/<code>がちま</code>/<code>ガチマッチ</code>/<code>がちまっち</code>は同じ動作です</p>
-<p><img alt="buki" src="../images/gachima.png" /></p>
-<h2 id="riguma">riguma</h2>
-<p>リーグマッチの直近のスケジュールを3件表示します<br />
-<code>league</code>/<code>riguma</code>/<code>リグマ</code>/<code>りぐま</code>/<code>リーグマッチ</code>/<code>りーぐまっち</code>は同じ動作です</p>
-<h2 id="nawabari">nawabari</h2>
-<p>リーグマッチの直近のスケジュールを3件表示します<br />
-<code>regular</code>/<code>レギュラー</code>/<code>れぎゅらー</code>/<code>レギュラーマッチ</code>/<code>れぎゅらーまっち</code>/<code>nawabari</code>/<code>ナワバリ</code>/<code>なわばり</code>/<code>ナワバリバトル</code>/<code>なわばりばとる</code>は同じ動作です</p>
-<h2 id="salmon">salmon</h2>
-<p>サーモンランの直近のスケジュールを2件表示します<br />
-<code>salmon</code>/<code>samon</code>/<code>sa-mon</code>/<code>サーモン</code>/<code>さーもん</code>/<code>サーモンラン</code>/<code>さーもんらん</code>/<code>coop</code>/<code>コープ</code>/<code>こーぷ</code>/<code>サケ</code>/<code>さけ</code>/<code>シャケ</code>/<code>しゃけ</code>/<code>鮭</code>は同じ動作です</p>
-<h2 id="d">&lt;ダイスの個数&gt;d&lt;ダイスの面&gt;</h2>
-<p>指定した面のダイスを指定した個数振った出目の合計を返します<br />
-例：<code>3d6</code> -&gt; 6面ダイスを3回振った出目の合計を返します</p>
+ブキの種類は <a href="https://stat.ink/api-info/weapon2" target="_blank">https://stat.ink/api-info/weapon2</a> のカテゴリ2から拝借しています</p>
+<!-- ## gachima
+ガチマッチの直近のスケジュールを3件表示します
+`gachi`/`ガチ`/`がち`/`gachima`/`ガチマ`/`がちま`/`ガチマッチ`/`がちまっち`は同じ動作です -->
+<h2 id="gachima">/gachima</h2>
+<p>ガチマッチの直近のスケジュールを3件表示します</p>
+<!-- ![buki](./images/gachima.png) -->
+
+<!-- ## riguma
+リーグマッチの直近のスケジュールを3件表示します
+`league`/`riguma`/`リグマ`/`りぐま`/`リーグマッチ`/`りーぐまっち`は同じ動作です -->
+<h2 id="riguma">/riguma</h2>
+<p>リーグマッチの直近のスケジュールを3件表示します</p>
+<!-- ## nawabari
+リーグマッチの直近のスケジュールを3件表示します
+`regular`/`レギュラー`/`れぎゅらー`/`レギュラーマッチ`/`れぎゅらーまっち`/`nawabari`/`ナワバリ`/`なわばり`/`ナワバリバトル`/`なわばりばとる`は同じ動作です -->
+<h2 id="nawabari">/nawabari</h2>
+<p>リーグマッチの直近のスケジュールを3件表示します</p>
+<!-- ## salmon
+サーモンランの直近のスケジュールを2件表示します
+`salmon`/`samon`/`sa-mon`/`サーモン`/`さーもん`/`サーモンラン`/`さーもんらん`/`coop`/`コープ`/`こーぷ`/`サケ`/`さけ`/`シャケ`/`しゃけ`/`鮭`は同じ動作です -->
+<h2 id="salmon">/salmon</h2>
+<p>サーモンランの直近のスケジュールを2件表示します</p>
+<!-- ## <ダイスの個数>d<ダイスの面>
+指定した面のダイスを指定した個数振った出目の合計を返します
+例：`3d6` -> 6面ダイスを3回振った出目の合計を返します -->
+
+
+
 
               
             </article>
@@ -615,10 +620,11 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
       
     
   </body>
