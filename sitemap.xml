@@ -26,6 +26,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://murufon.github.io/bukiBot/slashcommand/</loc>
+         <lastmod>2022-09-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://murufon.github.io/bukiBot/summon/</loc>
          <lastmod>2022-09-03</lastmod>
          <changefreq>daily</changefreq>
