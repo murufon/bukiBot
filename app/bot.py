@@ -359,7 +359,7 @@ async def gachima(interaction: discord.Interaction):
     msg = getStageInfo(link, key)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild)
+@tree.command(guild=guild, name='riguma', description='リーグマッチのスケジュールを表示')
 async def riguma(interaction: discord.Interaction):
     key = "リーグマッチ"
     link = "league/schedule"
