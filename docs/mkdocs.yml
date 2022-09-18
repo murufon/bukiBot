@@ -3,6 +3,7 @@ site_url: https://murufon.github.io/bukiBot/
 nav:
     - むる太郎とは: index.md
     - コマンド: command.md
+    - スラッシュコマンド: slashcommand.md
     - about: about.md
     - 更新履歴: changeLog.md
     - プライバシーポリシー: privacypolicy.md
