@@ -29,37 +29,38 @@ tree = app_commands.CommandTree(client)
 
 def getJsonFromAPI(link):
     headers = {"User-Agent": "@murufon"}
-    url = "https://spla2.yuu26.com/" + link
+    url = "https://spla3.yuu26.com/api/" + link
     response = requests.get(url,headers=headers)
     json_data = json.loads(response.text)
     return json_data
 
 def getStageInfo(link, key, showRule=True):
     json_data = getJsonFromAPI(link)
-    r = json_data['result']
-    time_format = '%Y-%m-%dT%H:%M:%S'
+    r = json_data['results']
+    JST = timezone(timedelta(hours=+9), 'JST')
+    time_format = '%Y-%m-%dT%H:%M:%S%z'
     msg = f"{key}のスケジュールはこちら！\n"
     msg += "```\n"
     for i in range(3):
-        start = datetime.strptime(r[i]['start'], time_format)
-        end = datetime.strptime(r[i]['end'], time_format)
+        start = datetime.strptime(r[i]['start_time'], time_format)
+        end = datetime.strptime(r[i]['end_time'], time_format)
         msg += "\n" # markdownの最初の空行は無視される
         msg += f"{start.strftime('%H:%M')} - {end.strftime('%H:%M')}\n"
         if showRule:
-            msg += f"{r[i]['rule']}\n"
-        msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}\n"
+            msg += f"{r[i]['rule']['name']}\n"
+        msg += f"{r[i]['stages'][0]['name']}/{r[i]['stages'][1]['name']}\n"
     msg += "```\n"
     return msg
 
 def getCoopInfo(link, key):
     json_data = getJsonFromAPI(link)
-    r = json_data['result']
-    time_format = '%Y-%m-%dT%H:%M:%S'
+    r = json_data['results']
+    time_format = '%Y-%m-%dT%H:%M:%S%z'
     msg = f"{key}のスケジュールはこちら！\n"
     msg += "```\n"
-    for i in range(2):
-        start = datetime.strptime(r[i]['start'], time_format)
-        end = datetime.strptime(r[i]['end'], time_format)
+    for i in range(3):
+        start = datetime.strptime(r[i]['start_time'], time_format)
+        end = datetime.strptime(r[i]['end_time'], time_format)
         msg += "\n"
         msg += f"{start.strftime('%m/%d %H:%M')} - {end.strftime('%m/%d %H:%M')}\n"
         msg += f"{r[i]['stage']['name']}\n"
@@ -243,19 +244,33 @@ async def buki_type(interaction: discord.Interaction, type: Literal['シュー�
         user = interaction.user.display_name
         await interaction.response.send_message(f"{user}さんにおすすめの{type}は{ja_name}({en_name})！" , file=discord.File(path))
 
-@tree.command(guild=guild, name='gachima', description='ガチマッチのスケジュールを表示')
-async def gachima(interaction: discord.Interaction):
-    key = "ガチマッチ"
-    link = "gachi/schedule"
+@tree.command(guild=guild, name='bankara_challenge', description='バンカラマッチ(チャレンジ)のスケジュールを表示')
+async def bankara_challenge(interaction: discord.Interaction):
+    key = "バンカラマッチ(チャレンジ)"
+    link = "bankara-challenge/schedule"
     msg = getStageInfo(link, key)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild, name='riguma', description='リーグマッチのスケジュールを表示')
-async def riguma(interaction: discord.Interaction):
-    key = "リーグマッチ"
-    link = "league/schedule"
+@tree.command(guild=guild, name='bankara_open', description='バンカラマッチ (オープン)のスケジュールを表示')
+async def bankara_open(interaction: discord.Interaction):
+    key = "バンカラマッチ (オープン)"
+    link = "bankara-open/schedule"
     msg = getStageInfo(link, key)
     await interaction.response.send_message(msg)
+
+# @tree.command(guild=guild, name='gachima', description='ガチマッチのスケジュールを表示')
+# async def gachima(interaction: discord.Interaction):
+#     key = "ガチマッチ"
+#     link = "gachi/schedule"
+#     msg = getStageInfo(link, key)
+#     await interaction.response.send_message(msg)
+
+# @tree.command(guild=guild, name='riguma', description='リーグマッチのスケジュールを表示')
+# async def riguma(interaction: discord.Interaction):
+#     key = "リーグマッチ"
+#     link = "league/schedule"
+#     msg = getStageInfo(link, key)
+#     await interaction.response.send_message(msg)
 
 @tree.command(guild=guild, name='nawabari', description='ナワバリバトルのスケジュールを表示')
 async def nawabari(interaction: discord.Interaction):
@@ -267,7 +282,7 @@ async def nawabari(interaction: discord.Interaction):
 @tree.command(guild=guild, name='salmon', description='サーモンランのスケジュールを表示')
 async def salmon(interaction: discord.Interaction):
     key = "サーモンラン"
-    link = "coop/schedule"
+    link = "coop-grouping-regular/schedule"
     msg = getCoopInfo(link, key)
     await interaction.response.send_message(msg)
 
