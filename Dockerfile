@@ -1,7 +1,7 @@
 FROM python:3.8
 
 RUN apt update && \
-  apt install -y python-dev default-libmysqlclient-dev opus-tools ffmpeg
+  apt install -y python-dev-is-python3 default-libmysqlclient-dev opus-tools ffmpeg
 
 COPY ./requirements.txt /root/requirements.txt
 

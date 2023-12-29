@@ -233,7 +233,7 @@ async def channel_remove(interaction: discord.Interaction, channel: str):
 
 @tree.command(guild=guild, name='buki_type', description='ブキ種ごとのルーレット')
 @app_commands.describe(type='ブキの種類')
-async def buki_type(interaction: discord.Interaction, type: Literal['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']):
+async def buki_type(interaction: discord.Interaction, type: Literal['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター', 'ワイパー', 'ストリンガー']):
     json_data = json.load(open('weapon.json','r'))
     filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type, json_data))
     if filtered_data:
@@ -286,21 +286,21 @@ async def salmon(interaction: discord.Interaction):
     msg = getCoopInfo(link, key)
     await interaction.response.send_message(msg)
 
-@tree.command(guild=guild, name='countdown', description='Splatoon3までの残り日数を表示')
-async def countdown(interaction: discord.Interaction):
-    JST = timezone(timedelta(hours=+9), 'JST')
-    end_day = datetime(2022, 9, 9, tzinfo=JST)
-    today = datetime.now(JST)
-    delta = end_day - today
-    days = delta.days + 1
-    logging.info(end_day)
-    logging.info(today)
-    logging.info(delta)
-    if days > 0:
-        msg = "Splatoon3発売まであと" + str(days) + "日！！"
-    else:
-        msg = "Splatoon3発売！！"
-    await interaction.response.send_message(msg)
+# @tree.command(guild=guild, name='countdown', description='Splatoon3までの残り日数を表示')
+# async def countdown(interaction: discord.Interaction):
+#     JST = timezone(timedelta(hours=+9), 'JST')
+#     end_day = datetime(2022, 9, 9, tzinfo=JST)
+#     today = datetime.now(JST)
+#     delta = end_day - today
+#     days = delta.days + 1
+#     logging.info(end_day)
+#     logging.info(today)
+#     logging.info(delta)
+#     if days > 0:
+#         msg = "Splatoon3発売まであと" + str(days) + "日！！"
+#     else:
+#         msg = "Splatoon3発売！！"
+#     await interaction.response.send_message(msg)
 
 def run(DISCORDBOT_TOKEN):
     client.run(DISCORDBOT_TOKEN)
